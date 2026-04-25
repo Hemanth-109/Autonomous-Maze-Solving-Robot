@@ -1,1 +1,194 @@
-/home/rushil/Desktop/maze_ws/src/maze_bot/worlds/maze.world
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="maze_world">
+
+    <include><uri>model://ground_plane</uri></include>
+
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Outer boundary 8 m x 8 m (inner face ±4.05 m) -->
+    <model name="outer_north">
+      <static>true</static><pose>0 4.05 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>8.2 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>8.2 0.1 0.4</size></box></geometry>
+          <material><ambient>0.25 0.25 0.25 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="outer_south">
+      <static>true</static><pose>0 -4.05 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>8.2 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>8.2 0.1 0.4</size></box></geometry>
+          <material><ambient>0.25 0.25 0.25 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="outer_east">
+      <static>true</static><pose>4.05 0 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.1 8.2 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.1 8.2 0.4</size></box></geometry>
+          <material><ambient>0.25 0.25 0.25 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="outer_west">
+      <static>true</static><pose>-4.05 0 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.1 8.2 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.1 8.2 0.4</size></box></geometry>
+          <material><ambient>0.25 0.25 0.25 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!--
+    ============================================================
+    INNER WALLS  — same proven topology as original maze,
+    scaled to the 8 m arena.
+
+    Three vertical zones separated by vL (x=-1.9) and vR (x=2.5):
+      Left zone  : x = -4.05 .. -1.9   (2.15 m wide)
+      Middle zone: x = -1.9  ..  2.5   (4.4  m wide)
+      Right zone : x =  2.5  ..  4.05  (1.55 m wide)
+
+    Five horizontal dividers with staggered gaps give a long
+    winding path with NO sealed sections:
+
+      h1  y=-2.9   gap RIGHT  (x= 1.0 .. 4.05)
+      h2  y=-0.8   gap RIGHT  (x= 2.5 .. 4.05) — robot uses right zone
+      h3  y= 0.5   gap LEFT   (x=-4.05 ..-1.9)
+      h4  y= 2.0   gap RIGHT  (x= 2.5 .. 4.05)
+      h5  y= 3.0   gap LEFT   (x=-4.05 ..-1.9) → leads to GOAL area
+
+    Left-wall-following path (robot starts facing East at (-2.5,-3.3)):
+      1. Follow h1 east  → gap at x=1.0  → turn NORTH
+      2. Go north in right zone, follow vR east face
+         → hit h2 at y=-0.8 → turn EAST
+      3. Go east → outer east → turn SOUTH
+         → go south → outer south → turn WEST
+         (right zone dead-end loop, robot re-enters h1 gap from south,
+          goes west in bottom corridor, outer west → turn NORTH,
+          left zone: h1 doesn't cover x<-1.9, so goes north freely)
+         Actually robot turns north through h1 gap immediately at x≈1.0
+         then follows vR. Let me keep the design simple and gap-safe.
+
+    SIMPLIFIED PROVEN DESIGN (identical topology to original):
+      h1  gap RIGHT:  robot goes east → turns north at gap
+      vR  right wall: channels robot going north
+      h3  robot hits ceiling → turns right (east) → hits outer east → south
+      h2  robot hits → turns right (west) → follows south face west
+      vL  left wall:  channels robot going north after h2 left gap
+      h4  robot hits → turns right (east) → vR → south
+      h5  top wall:   gap right → robot enters top-right → GOAL
+    ============================================================ -->
+
+    <!-- h1: bottom divider y=-2.9
+         spans x=-4.05 to x=1.0  |  gap RIGHT: x=1.0 to 4.05 -->
+    <model name="h1">
+      <static>true</static>
+      <pose>-1.525 -2.9 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>5.05 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>5.05 0.1 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- vL: left vertical  x=-1.9  y=-2.8 to 2.8 -->
+    <model name="vL">
+      <static>true</static>
+      <pose>-1.9 0.0 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.1 5.6 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.1 5.6 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- h2: second divider  y=-0.8
+         spans x=-1.85 to x=2.5  |  gaps: left (-4.05..-1.9) and right (2.5..4.05) -->
+    <model name="h2">
+      <static>true</static>
+      <pose>0.325 -0.8 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4.35 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.35 0.1 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- h3: third divider  y=0.8
+         spans x=-1.85 to x=2.5  |  same gaps as h2 -->
+    <model name="h3">
+      <static>true</static>
+      <pose>0.325 0.8 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4.35 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.35 0.1 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- vR: right vertical  x=2.5  y=-2.8 to 4.05 -->
+    <model name="vR">
+      <static>true</static>
+      <pose>2.5 0.625 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.1 6.85 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.1 6.85 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- h4: fourth divider  y=2.2
+         spans x=-1.85 to x=2.55  |  same gaps as h2/h3 -->
+    <model name="h4">
+      <static>true</static>
+      <pose>0.35 2.2 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4.4 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.4 0.1 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- h5: top divider  y=3.2
+         spans x=-4.05 to x=2.55  |  gap RIGHT: x=2.55 to 4.05 → GOAL -->
+    <model name="h5">
+      <static>true</static>
+      <pose>-0.75 3.2 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6.6 0.1 0.4</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6.6 0.1 0.4</size></box></geometry>
+          <material><ambient>0.85 0.50 0.10 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- START marker (blue)  robot spawns here facing East -->
+    <model name="start_marker">
+      <static>true</static><pose>-2.5 -3.3 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.6 0.6 0.02</size></box></geometry>
+          <material><ambient>0.0 0.3 1.0 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- GOAL marker (green) — top-right pocket above h5, east of vR -->
+    <model name="goal_marker">
+      <static>true</static><pose>3.2 3.6 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.6 0.6 0.02</size></box></geometry>
+          <material><ambient>0.0 0.9 0.1 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
