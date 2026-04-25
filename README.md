@@ -1,22 +1,3 @@
-# 🤖 Maze Bot — Complete Project Overview
-
-## Table of Contents
-1. [What is this project?](#1-what-is-this-project)
-2. [Technology Stack](#2-technology-stack)
-3. [Project Structure](#3-project-structure)
-4. [The Robot Hardware (URDF)](#4-the-robot-hardware-urdf)
-5. [Sensors Explained](#5-sensors-explained)
-6. [The Maze World](#6-the-maze-world)
-7. [The Brain — Controller Logic](#7-the-brain--controller-logic)
-8. [The Algorithm — Left-Wall Following](#8-the-algorithm--left-wall-following)
-9. [State Machine — 4 States](#9-state-machine--4-states)
-10. [P-Controller — Smooth Steering](#10-p-controller--smooth-steering)
-11. [How All Nodes Connect](#11-how-all-nodes-connect)
-12. [How to Run](#12-how-to-run)
-13. [Key Parameters](#13-key-parameters)
-14. [Known Issues & Fixes Applied](#14-known-issues--fixes-applied)
-
----
 
 ## 1. What is this project?
 
