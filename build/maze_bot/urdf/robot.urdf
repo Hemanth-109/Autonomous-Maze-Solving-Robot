@@ -1,1 +1,419 @@
-/home/rushil/Desktop/maze_ws/src/maze_bot/urdf/robot.urdf
+<?xml version="1.0"?>
+<robot name="maze_bot">
+
+  <!-- ===== BASE LINK ===== -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.22 0.18 0.05"/>
+      </geometry>
+      <material name="red">
+        <color rgba="0.8 0.1 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.22 0.18 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.5"/>
+      <!-- Solid box: ixx=m/12*(y^2+z^2), iyy=m/12*(x^2+z^2), izz=m/12*(x^2+y^2) -->
+      <inertia ixx="0.006563" ixy="0.0" ixz="0.0"
+               iyy="0.008271" iyz="0.0"
+               izz="0.014438"/>
+    </inertial>
+  </link>
+
+  <!-- ===== LEFT WHEEL ===== -->
+  <!-- Cylinder default axis is Z; rotating 90deg around X aligns it with Y (wheel axis) -->
+  <link name="left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.025"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <!-- Solid cylinder: ixx=iyy=m/12*(3r^2+h^2), izz=m/2*r^2 -->
+      <inertia ixx="0.000058" ixy="0.0" ixz="0.0"
+               iyy="0.000058" iyz="0.0"
+               izz="0.000080"/>
+    </inertial>
+  </link>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <!-- z=-0.005: wheel center 5mm below base_link center; wheel bottom = spawn_z-0.005-0.04=0 -->
+    <origin xyz="0 0.11 -0.005" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.05" friction="0.1"/>
+  </joint>
+
+  <!-- ===== RIGHT WHEEL ===== -->
+  <link name="right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.025"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000058" ixy="0.0" ixz="0.0"
+               iyy="0.000058" iyz="0.0"
+               izz="0.000080"/>
+    </inertial>
+  </link>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 -0.11 -0.005" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.05" friction="0.1"/>
+  </joint>
+
+  <!-- ===== FRONT CASTER (frictionless, for stability) ===== -->
+  <link name="caster_front">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.015"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.015"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.000003" ixy="0.0" ixz="0.0"
+               iyy="0.000003" iyz="0.0"
+               izz="0.000003"/>
+    </inertial>
+  </link>
+
+  <!-- z=-0.03: caster center = spawn_z-0.03=0.015=caster_radius → bottom at 0 -->
+  <joint name="caster_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_front"/>
+    <origin xyz="0.09 0 -0.03" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ===== BACK CASTER ===== -->
+  <link name="caster_back">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.015"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.015"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.000003" ixy="0.0" ixz="0.0"
+               iyy="0.000003" iyz="0.0"
+               izz="0.000003"/>
+    </inertial>
+  </link>
+
+  <joint name="caster_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_back"/>
+    <origin xyz="-0.09 0 -0.03" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ===== ULTRASONIC FRONT SENSOR ===== -->
+  <link name="ultrasonic_front">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.04 0.015"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.2 0.8 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0"
+               iyy="0.0000001" iyz="0.0"
+               izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <joint name="ultra_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ultrasonic_front"/>
+    <origin xyz="0.12 0 0.01" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo reference="ultrasonic_front">
+    <sensor name="ultrasonic_sensor" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>5</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.1745</min_angle>
+            <max_angle>0.1745</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.03</min>
+          <max>3.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.005</stddev>
+        </noise>
+      </ray>
+      <plugin name="ultrasonic_plugin" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=/ultrasonic_front</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <frame_name>ultrasonic_front</frame_name>
+        <radiation_type>ultrasound</radiation_type>
+        <min_range>0.03</min_range>
+        <max_range>3.0</max_range>
+        <fov>0.3491</fov>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- ===== IR LEFT SENSOR ===== -->
+  <link name="ir_left">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 0.8 0.0 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.005"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0"
+               iyy="0.0000001" iyz="0.0"
+               izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <!-- rpy "0 0 1.5707963": sensor faces +y (left side of robot)
+       x=0.09: forward of wheel footprint (wheel extends only to x=0.04)
+       y=0.09: at body edge, ray exits freely into the corridor -->
+  <joint name="ir_left_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ir_left"/>
+    <origin xyz="0.09 0.09 0.01" rpy="0 0 1.5707963"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <gazebo reference="ir_left">
+    <sensor name="ir_left_sensor" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>5</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>3</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.1</min_angle>
+            <max_angle>0.1</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.01</min>
+          <max>1.50</max>
+          <resolution>0.005</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.005</stddev>
+        </noise>
+      </ray>
+      <plugin name="ir_left_plugin" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=/ir_left</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <frame_name>ir_left</frame_name>
+        <radiation_type>infrared</radiation_type>
+        <min_range>0.01</min_range>
+        <max_range>1.50</max_range>
+        <fov>0.2</fov>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- ===== IR RIGHT SENSOR ===== -->
+  <link name="ir_right">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 0.8 0.0 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.005"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0"
+               iyy="0.0000001" iyz="0.0"
+               izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <!-- rpy "0 0 -1.5707963": sensor faces -y (right side of robot)
+       x=0.09: forward of wheel footprint (wheel extends only to x=0.04)
+       y=-0.09: at body edge, ray exits freely into the corridor -->
+  <joint name="ir_right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ir_right"/>
+    <origin xyz="0.09 -0.09 0.01" rpy="0 0 -1.5707963"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <gazebo reference="ir_right">
+    <sensor name="ir_right_sensor" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>5</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>3</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.1</min_angle>
+            <max_angle>0.1</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.01</min>
+          <max>1.50</max>
+          <resolution>0.005</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.005</stddev>
+        </noise>
+      </ray>
+      <plugin name="ir_right_plugin" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=/ir_right</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <frame_name>ir_right</frame_name>
+        <radiation_type>infrared</radiation_type>
+        <min_range>0.01</min_range>
+        <max_range>1.50</max_range>
+        <fov>0.2</fov>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- ===== DIFF DRIVE PLUGIN (ROS2 Humble / Gazebo Classic 11) ===== -->
+  <gazebo>
+    <plugin name="diff_drive_plugin" filename="libgazebo_ros_diff_drive.so">
+      <update_rate>30</update_rate>
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <!-- wheel_separation = distance between wheel centres = 2 * 0.11 -->
+      <wheel_separation>0.22</wheel_separation>
+      <wheel_radius>0.04</wheel_radius>
+      <max_wheel_torque>5</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <!-- publish /odom and odom→base_link TF -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
+
+  <!-- ===== WHEEL CONTACT PROPERTIES ===== -->
+  <gazebo reference="left_wheel">
+    <mu1>1.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="right_wheel">
+    <mu1>1.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Zero friction on casters so they slide freely -->
+  <gazebo reference="caster_front">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <gazebo reference="caster_back">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <!-- Base link appearance in Gazebo -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+</robot>
