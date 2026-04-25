@@ -1,0 +1,21 @@
+[0.322s] Invoking command in '/home/rushil/Desktop/maze_ws/src/maze_bot': PYTHONPATH=/home/rushil/Desktop/maze_ws/build/maze_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/maze_bot build --build-base /home/rushil/Desktop/maze_ws/build/maze_bot/build install --record /home/rushil/Desktop/maze_ws/build/maze_bot/install.log --single-version-externally-managed install_data
+[0.437s] running egg_info
+[0.437s] writing ../../build/maze_bot/maze_bot.egg-info/PKG-INFO
+[0.437s] writing dependency_links to ../../build/maze_bot/maze_bot.egg-info/dependency_links.txt
+[0.437s] writing entry points to ../../build/maze_bot/maze_bot.egg-info/entry_points.txt
+[0.437s] writing requirements to ../../build/maze_bot/maze_bot.egg-info/requires.txt
+[0.437s] writing top-level names to ../../build/maze_bot/maze_bot.egg-info/top_level.txt
+[0.438s] reading manifest file '../../build/maze_bot/maze_bot.egg-info/SOURCES.txt'
+[0.439s] writing manifest file '../../build/maze_bot/maze_bot.egg-info/SOURCES.txt'
+[0.439s] running build
+[0.439s] running build_py
+[0.439s] running install
+[0.439s] running install_lib
+[0.440s] running install_data
+[0.440s] running install_egg_info
+[0.441s] removing '/home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot-0.0.0-py3.10.egg-info' (and everything under it)
+[0.442s] Copying ../../build/maze_bot/maze_bot.egg-info to /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot-0.0.0-py3.10.egg-info
+[0.442s] running install_scripts
+[0.456s] Installing controller script to /home/rushil/Desktop/maze_ws/install/maze_bot/lib/maze_bot
+[0.457s] writing list of installed files to '/home/rushil/Desktop/maze_ws/build/maze_bot/install.log'
+[0.474s] Invoked command in '/home/rushil/Desktop/maze_ws/src/maze_bot' returned '0': PYTHONPATH=/home/rushil/Desktop/maze_ws/build/maze_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/maze_bot build --build-base /home/rushil/Desktop/maze_ws/build/maze_bot/build install --record /home/rushil/Desktop/maze_ws/build/maze_bot/install.log --single-version-externally-managed install_data

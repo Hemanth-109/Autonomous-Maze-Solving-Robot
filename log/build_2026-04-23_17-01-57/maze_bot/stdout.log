@@ -1,0 +1,37 @@
+running develop
+Removing /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze-bot.egg-link (link to .)
+running egg_info
+writing ../../build/maze_bot/maze_bot.egg-info/PKG-INFO
+writing dependency_links to ../../build/maze_bot/maze_bot.egg-info/dependency_links.txt
+writing entry points to ../../build/maze_bot/maze_bot.egg-info/entry_points.txt
+writing requirements to ../../build/maze_bot/maze_bot.egg-info/requires.txt
+writing top-level names to ../../build/maze_bot/maze_bot.egg-info/top_level.txt
+reading manifest file '../../build/maze_bot/maze_bot.egg-info/SOURCES.txt'
+writing manifest file '../../build/maze_bot/maze_bot.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/rushil/Desktop/maze_ws/build/maze_bot/build
+creating /home/rushil/Desktop/maze_ws/build/maze_bot/build/lib
+creating /home/rushil/Desktop/maze_ws/build/maze_bot/build/lib/maze_bot
+copying maze_bot/controller.py -> /home/rushil/Desktop/maze_ws/build/maze_bot/build/lib/maze_bot
+copying maze_bot/__init__.py -> /home/rushil/Desktop/maze_ws/build/maze_bot/build/lib/maze_bot
+running install
+running install_lib
+creating /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot
+copying /home/rushil/Desktop/maze_ws/build/maze_bot/build/lib/maze_bot/controller.py -> /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot
+copying /home/rushil/Desktop/maze_ws/build/maze_bot/build/lib/maze_bot/__init__.py -> /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot
+byte-compiling /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot/controller.py to controller.cpython-310.pyc
+byte-compiling /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot/__init__.py to __init__.cpython-310.pyc
+running install_data
+copying resource/maze_bot -> /home/rushil/Desktop/maze_ws/install/maze_bot/share/ament_index/resource_index/packages
+copying package.xml -> /home/rushil/Desktop/maze_ws/install/maze_bot/share/maze_bot
+copying launch/maze.launch.py -> /home/rushil/Desktop/maze_ws/install/maze_bot/share/maze_bot/launch
+copying worlds/maze.world -> /home/rushil/Desktop/maze_ws/install/maze_bot/share/maze_bot/worlds
+copying urdf/robot.urdf -> /home/rushil/Desktop/maze_ws/install/maze_bot/share/maze_bot/urdf
+creating /home/rushil/Desktop/maze_ws/install/maze_bot/share/maze_bot/rviz
+copying rviz/maze_bot.rviz -> /home/rushil/Desktop/maze_ws/install/maze_bot/share/maze_bot/rviz
+running install_egg_info
+Copying ../../build/maze_bot/maze_bot.egg-info to /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze_bot-0.0.0-py3.10.egg-info
+running install_scripts
+Installing controller script to /home/rushil/Desktop/maze_ws/install/maze_bot/bin
+writing list of installed files to '/home/rushil/Desktop/maze_ws/build/maze_bot/install.log'

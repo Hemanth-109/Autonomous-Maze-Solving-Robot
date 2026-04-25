@@ -1,0 +1,17 @@
+[0.305s] Invoking command in '/home/rushil/Desktop/maze_ws/build/maze_bot': PYTHONPATH=/home/rushil/Desktop/maze_ws/build/maze_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/rushil/Desktop/maze_ws/build/maze_bot/build --no-deps symlink_data
+[0.438s] running develop
+[0.670s] running egg_info
+[0.670s] writing maze_bot.egg-info/PKG-INFO
+[0.670s] writing dependency_links to maze_bot.egg-info/dependency_links.txt
+[0.670s] writing entry points to maze_bot.egg-info/entry_points.txt
+[0.670s] writing requirements to maze_bot.egg-info/requires.txt
+[0.670s] writing top-level names to maze_bot.egg-info/top_level.txt
+[0.671s] reading manifest file 'maze_bot.egg-info/SOURCES.txt'
+[0.672s] writing manifest file 'maze_bot.egg-info/SOURCES.txt'
+[0.673s] running build_ext
+[0.673s] Creating /home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages/maze-bot.egg-link (link to .)
+[0.673s] Installing controller script to /home/rushil/Desktop/maze_ws/install/maze_bot/bin
+[0.673s] 
+[0.673s] Installed /home/rushil/Desktop/maze_ws/build/maze_bot
+[0.673s] running symlink_data
+[0.688s] Invoked command in '/home/rushil/Desktop/maze_ws/build/maze_bot' returned '0': PYTHONPATH=/home/rushil/Desktop/maze_ws/build/maze_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rushil/Desktop/maze_ws/install/maze_bot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/rushil/Desktop/maze_ws/build/maze_bot/build --no-deps symlink_data

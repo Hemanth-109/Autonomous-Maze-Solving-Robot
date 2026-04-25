@@ -1,0 +1,27 @@
+<package format="3">
+  <name>maze_bot</name>
+  <version>0.0.0</version>
+  <description>Maze Solver Robot</description>
+
+  <maintainer email="you@todo.com">you</maintainer>
+  <license>MIT</license>
+
+  <!-- IMPORTANT: Tell ROS2 it's a Python package -->
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <!-- Runtime deps used in launch file -->
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- REQUIRED: This line fixes your error -->
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
