@@ -192,10 +192,6 @@ y=-3.15 └──────────────────┴────
 - **Blue tile** at (-2.0, -2.6) = START position
 - **Green tile** at (+2.6, +2.8) = GOAL position
 
-### Robot Spawn
-The robot spawns at **(-2.0, -2.6, 0)** facing East (+x direction).
-At this position, the left sensor reads exactly **0.21m** to h1 — immediately in FOLLOW mode.
-
 ---
 
 ## 7. The Brain — Controller Logic
@@ -371,7 +367,7 @@ The steering is **proportional to the error** — small deviation = gentle corre
 
 ### Start the project
 ```bash
-cd /home/rushil/Desktop/maze_ws
+cd /home/maze_ws
 source /opt/ros/humble/setup.bash
 colcon build --packages-select maze_bot
 source install/setup.bash
@@ -414,28 +410,3 @@ All tunable values in `controller.py`:
 | `Kp` | 2.5 | P-controller gain (steering sensitivity) |
 
 ---
-
-## 14. Known Issues & Fixes Applied
-
-### Issue 1: Robot circling (old symptom)
-- **Cause:** IR sensors were inside wheel geometry → always reading 0.02m (own wheel)
-- **Fix:** Moved sensors to x=0.09, y=±0.09 (forward of wheel, at body edge)
-
-### Issue 2: RuntimeError crashes (Gazebo NaN messages)
-- **Cause:** Gazebo sends NaN/infinity when sensor detects nothing within max range
-- **Fix 1:** Added `<noise><type>gaussian</type>` to all sensors (forces valid float values)
-- **Fix 2:** Full `rclpy.init()/shutdown()` context reset loop (clears stale DDS queues)
-- **Fix 3:** QoS `depth=1` + `BEST_EFFORT` (drops bad buffered messages immediately)
-- **Fix 4:** Sensor update rate reduced from 20Hz to 5Hz (fewer message chances)
-
-### Issue 3: Double-shutdown error on Ctrl+C
-- **Cause:** `rclpy.shutdown()` called twice in error handling path
-- **Fix:** Single `finally` block ensures exactly one shutdown call
-
-### Issue 4: Robot state reset after crash recovery
-- **Cause:** Node restart reset sensor values to defaults → robot moved blindly into walls
-- **Fix:** Global `_last_front/left/right` variables preserve sensor readings across restarts
-
----
-
-*Project: maze_bot | ROS 2 Humble | Gazebo Classic 11 | Python 3.10*
